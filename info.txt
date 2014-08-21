@@ -1,0 +1,25 @@
+Controller:
+Name of controller :- UsersController. Plural, Camel case.
+Name of controller file :- UsersController.php. Should be camel case.
+
+
+Model:
+Name of model :- Login   Singular
+Name of the table associated with above model :- logins
+Name of model file :- Login.php
+
+
+TableName:
+Name of the table :- logins. lower case ,plural name to that of the model name.
+
+
+-------------------------------------------------------------------------------------------------------------------
+
+Controller::beforeFilter()
+This function is executed before every action in the controller. It’s a handy place to check for an active session or inspect user permissions.
+
+Controller::beforeRender()
+Called after controller action logic, but before the view is rendered. This callback is not used often, but may be needed if you are calling render() manually before the end of a given action.
+
+Controller::afterFilter()
+Called after every controller action, and after rendering is complete. This is the last controller method to run.
