@@ -63,19 +63,22 @@ class CategoriesController extends AppController{
 		if($this->request->isPost()){
 			$data=$this->request->data;
 			$image=$data['Category']['image'];
-			$rootPath=WWW_ROOT.'uploads'.DS.$image['name'];
-			if(move_uploaded_file($image['tmp_name'],$rootPath)){
+			$rootPath=WWW_ROOT.'uploads'.DS;
+			$this->common = $this->Components->load('Common');
+			// for loading component on the fly u have to manually call initialize method.
+			$this->common->initialize($this);  
+			$res=$this->common->uploadImage('Category','image',$rootPath);
+			if($res){
 				$data['Category']['image']=$image['name'];
-				//$this->Category->save($data);
+				$this->Category->save($data);
 				$this->Session->setFlash(
 					'Data is save successfully',
 					'default',
 					array('class' => 'example_class')
 				);
 				return $this->redirect(
-					array('controller' => 'categories')
+					array('controller' => 'categories','action'=>'index')
 				);
-				
 			}else{
 				$this->Session->setFlash(
 					'Some error occur, please try later',
@@ -85,7 +88,7 @@ class CategoriesController extends AppController{
 				return $this->redirect(
 					array('controller' => 'categories')
 				);
-			}
+			} 
 			
 		}
 		$this->set('allCat',$cats);

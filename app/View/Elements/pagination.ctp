@@ -12,7 +12,7 @@
 	<div class="row">
 		<div class="col-xs-6">
 			<div class="dataTables_info" id="example_info">
-				Showing <?php echo $currentPage; ?> to <?php echo $lastPage; ?> of <?php echo $this->params['paging']['Category']['count'];?> entries
+				Showing <?php echo (($currentPage-1)*$this->params['paging']['Category']['limit'])+1; ?> to <?php echo $lastPage; ?> of <?php echo $this->params['paging']['Category']['count'];?> entries
 			</div>
 		</div>
 		<div class="col-xs-6">

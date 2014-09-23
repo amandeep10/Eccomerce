@@ -33,8 +33,8 @@ class Category extends AppModel{
 	
 	public function paginate($conditions, $fields, $order, $limit, $page = 1,$recursive = null, $extra = array()) {
 		
-		$page= ($page==1) ? 0: $page;
-		//pr($order);
+		//$page= ($page==1) ? 0: $page;
+		$start=($page-1)*$limit;
 		$rs="select cat0.cat_name as cat0_name ,cat0.id, cat0.content,cat0.meta_title,cat0.meta_keywords,cat0.meta_description,cat0.image,cat0.status,cat1.cat_name as    cat1_name , cat1.id as cat1_id ,cat2.cat_name as cat2_name ,cat2.id as cat2_id, cat3.cat_name as cat3_name, cat3.id as cat3_id, cat4.cat_name as cat4_name,cat4.id as cat4_id from categories as cat0
 			left outer 
 			  join categories as cat1 
@@ -49,7 +49,7 @@ class Category extends AppModel{
 			  join categories as cat4
 			  on cat4.id = cat3.parent_id
 			  where cat0.status =1
-			  order by cat0_name limit $page,$limit";	
+			  order by cat0_name limit $start,$limit";	
 		
 		$this->recursive = $recursive;
 		$results = $this->query($rs);
