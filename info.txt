@@ -1,3 +1,5 @@
+http://alvinalexander.com/php/cakephp-cheat-sheet-reference-page-examples
+
 Controller:
 Name of controller :- UsersController. Plural, Camel case.
 Name of controller file :- UsersController.php. Should be camel case.
@@ -10,13 +12,17 @@ Name of model file :- Login.php
 
 View:
 Name of the folder = Name of the Controller
-File name (add.php) = Action of the controller
+File name  = Action of the controller
+users/add  = add.ctp
 
 TableName:
 Name of the table :- logins. lower case ,plural name to that of the model name.
 
 
--------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------
+Controller :
+
+Hooks(callbaks):-
 
 Controller::beforeFilter()
 This function is executed before every action in the controller. It’s a handy place to check for an active session or inspect user permissions.
@@ -26,3 +32,53 @@ Called after controller action logic, but before the view is rendered. This call
 
 Controller::afterFilter()
 Called after every controller action, and after rendering is complete. This is the last controller method to run.
+
+
+CakeResponse:-
+CakeResponse provides a number of useful methods for interacting with the response you are sending to a client.
+$this->response->location();
+$this->response->compress();
+
+$this->set('data',$data); //set the data to called in the view.
+$this->render()  //view file name to be rendered.
+$this->autoRender;
+$conditions=$this->postConditions($this->request->data);
+$this->Order->find('all', compact('conditions'));
+//Use this method to turn a set of POSTed model data (from HtmlHelper-compatible inputs) into a set of find conditions for a model.
+
+
+
+Request and Response objects¶ :-
+$this->request, and is available in Controllers, Views and Helpers.
+
+Controller::requestAction(string $url, array $options) 
+This function calls a controller’s action from any location and returns data from the action. The $url passed is a CakePHP-relative URL (/controllername/actionname/params). To pass extra data to the receiving controller action add to the $options array
+
+// URL is /posts/index?page=1&sort=title
+$this->request->query['page'];
+
+// View/Elements/latest_comments.ctp
+$comments = $this->requestAction('/comments/latest');
+foreach ($comments as $comment) {
+    echo $comment['Comment']['title'];
+}
+
+$this->request->webroot contains the webroot directory.
+$this->request->base contains the base path.
+$this->request->here contains the full address to the current request.
+$this->request->query contains the query string parameters.
+
+
+find ()
+Used to perform find operations, where the first argument is type of find operation to perform
+ * (all / first / count / neighbors / list / threaded),
+ * second parameter options for finding (indexed array, including: 'conditions', 'limit',
+ * 'recursive', 'page', 'fields', 'offset', 'order', 'callbacks')
+
+### Disabling callbacks
+ *
+ * The `callbacks` key allows you to disable or specify the callbacks that should be run. To
+ * disable beforeFind & afterFind callbacks set `'callbacks' => false` in your options. You can
+ * also set the callbacks option to 'before' or 'after' to enable only the specified callback.
+ *
+ 

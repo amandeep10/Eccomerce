@@ -1,6 +1,7 @@
 <?php
 App::uses('AuthComponent', 'Controller/Component');
 App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
+App::uses('AppModel', 'Model');
 class User extends AppModel {
      
     public $avatarUploadDir = 'img/avatars';

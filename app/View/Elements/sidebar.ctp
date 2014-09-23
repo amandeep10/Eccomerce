@@ -2,9 +2,9 @@
 	<div class="sidebar content-box" style="display: block;">
 		<ul class="nav">
 			<!-- Main menu -->
-			<li class="current"><a href="index.html"><i class="glyphicon glyphicon-home"></i> Dashboard</a></li>
-			<li><a href="calendar.html"><i class="glyphicon glyphicon-list"></i>Categories</a></li>
-			<li><a href="calendar.html"><i class="glyphicon glyphicon-list"></i>Products</a></li>
+			<li class="current"><a href="<?php echo host ?>admin/"><i class="glyphicon glyphicon-home"></i> Dashboard</a></li>
+			<li><a href="<?php echo host ?>admin/categories/"><i class="glyphicon glyphicon-list"></i>Categories</a></li>
+			<li><a href="<?php echo host ?>admin/products"><i class="glyphicon glyphicon-list"></i>Products</a></li>
 			<!--<li><a href="stats.html"><i class="glyphicon glyphicon-stats"></i> Statistics (Charts)</a></li>
 			<li><a href="tables.html"><i class="glyphicon glyphicon-list"></i> Tables</a></li>
 			<li><a href="buttons.html"><i class="glyphicon glyphicon-record"></i> Buttons</a></li>
@@ -17,8 +17,8 @@
 				 </a>
 				 <!-- Sub menu -->
 				 <ul>
-					<li><a href="login.html">Login</a></li>
-					<li><a href="signup.html">Signup</a></li>
+					<li><a href="<?php echo host ?>admin">Login</a></li>
+					<li><a href="<?php echo host ?>admin">Signup</a></li>
 				</ul>
 			</li>
 		</ul>

@@ -36,6 +36,12 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		echo $this->fetch('css');
 		echo $this->fetch('script');
 	?>
+	<?php 
+		echo $this->Html->script('https://code.jquery.com/jquery.js'); 
+		echo $this->Html->script('bootstrap.min'); 
+		echo $this->Html->script('custom'); 
+	
+	?>
 	<script type="text/javascript">
 		var baseUrl = '<?php echo SITE_URL;?>';
 		var imageUrl = '<?php echo $this->webroot; ?>img/';
@@ -76,11 +82,6 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		); */
 	?>
 	<?php echo $this->element('sql_dump'); ?>
-	<?php 
-		echo $this->Html->script('https://code.jquery.com/jquery.js'); 
-		echo $this->Html->script('bootstrap.min'); 
-		echo $this->Html->script('custom'); 
 	
-	?>
 </body>
 </html>
