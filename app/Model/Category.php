@@ -4,9 +4,52 @@ App::uses('AppModel', 'Model');
 class Category extends AppModel{
 	var $name = 'Category';
     var $useTable = 'categories';
-    var $actsAs = array('Tree');
+   // var $actsAs = array('Tree');
 	public $total;
 	public $rs;
+	public $validate = array(
+        'cat_name' => array(
+            'alphaNumeric' => array(
+                'rule'     => 'alphaNumeric',
+                'required' => true,
+                'message'  => 'Letters and numbers only'
+            ),
+            'between' => array(
+                'rule'    => array('between', 3, 15),
+                'message' => 'Between 5 to 15 characters'
+            )
+        ),
+        'meta_title' => array(
+            'rule'    => array('minLength', '8'),
+            'message' => 'Minimum 8 characters long'
+        ),
+        'meta_keywords' => array(
+			'rule'     => 'alphaNumeric',
+			'required' => true,
+			'message'  => 'Meta Keywords cannot be empty.'
+        ), 
+		'meta_description' => array(
+			'notempty' => array(
+            'rule' => array('checkMetaDesc'),                
+            'message' => array('Meta Description cannot be empty'),                
+            ),
+        ),
+		'parent_id' => array(
+			'rule' => array( 'customFunction' ),
+            'message' => array('Meta Description cannot be empty'),                
+		),        
+    );
+	public function customFunction(){
+		return true;
+	}
+	public function checkMetaDesc(){
+		$data=$this->data;
+		if($data['Category']['meta_description'] ==''){
+			return false;
+		}else{
+			return true;
+		}
+	}
 	public function findAllCategories($recursive = null, $extra = array()){
 		
 		$rs="select cat0.cat_name as cat0_name ,cat0.id, cat0.content,cat0.meta_title,cat0.meta_keywords,cat0.meta_description,cat0.image,cat0.status,cat1.cat_name as    cat1_name , cat1.id as cat1_id ,cat2.cat_name as cat2_name ,cat2.id as cat2_id, cat3.cat_name as cat3_name, cat3.id as cat3_id, cat4.cat_name as cat4_name,cat4.id as cat4_id from categories as cat0

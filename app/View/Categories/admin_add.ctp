@@ -29,9 +29,9 @@
 								echo $this->Form->select('parent_id', $allCat, 
 										array('class' => 'form-control input-sm',
 										'escape' => false,
+										'empty' => 'Select Parent Category',
 										'label' => false,
 										'required' => false,
-										"placeholder" => "Parent Category Name"
 									));
 							?>
 						</div>
