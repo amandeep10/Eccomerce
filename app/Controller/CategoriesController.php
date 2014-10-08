@@ -7,7 +7,11 @@ class CategoriesController extends AppController{
 	public $components = array('Paginator');
 	public static $catId;
 	public static $paRs=array();
-
+	
+	public function beforeFilter(){
+		parent::beforeFilter();
+		  $this->Auth->allow();
+	}
 	public function admin_index(){
 		$catRs=array();
 		
@@ -64,31 +68,40 @@ class CategoriesController extends AppController{
 			$data=$this->request->data;
 			$image=$data['Category']['image'];
 			$rootPath=WWW_ROOT.'uploads'.DS;
-			$this->common = $this->Components->load('Common');
-			// for loading component on the fly u have to manually call initialize method.
-			$this->common->initialize($this);  
-			$res=$this->common->uploadImage('Category','image',$rootPath);
-			if($res){
-				$data['Category']['image']=$image['name'];
-				$this->Category->save($data);
-				$this->Session->setFlash(
-					'Data is save successfully',
-					'default',
-					array('class' => 'example_class')
-				);
-				return $this->redirect(
-					array('controller' => 'categories','action'=>'index')
-				);
-			}else{
-				$this->Session->setFlash(
-					'Some error occur, please try later',
-					'default',
-					array('class' => 'example_class')
-				);
-				return $this->redirect(
-					array('controller' => 'categories')
-				);
+		
+			$this->Category->set($this->request->data);
+			if ($this->Category->validates()) {
+				$this->common = $this->Components->load('Common');
+				// for loading component on the fly u have to manually call initialize method.
+				$this->common->initialize($this);  
+				$res=$this->common->uploadImage('Category','image',$rootPath);
+				if($res){
+					$data['Category']['image']=$image['name'];
+					//$this->Category->save($data);
+					$this->Session->setFlash(
+						'Data is save successfully',
+						'default',
+						array('class' => 'example_class')
+					);
+					return $this->redirect(
+						array('controller' => 'categories','action'=>'index')
+					);
+				}else{
+					$this->Session->setFlash(
+						'Some error occur, please try later',
+						'default',
+						array('class' => 'example_class')
+					);
+					return $this->redirect(
+						array('controller' => 'categories')
+					);
+				}
 			} 
+			 
+			else {
+					// didn't validate logic
+					$errors = $this->Category->validationErrors;
+			}
 			
 		}
 		$this->set('allCat',$cats);
