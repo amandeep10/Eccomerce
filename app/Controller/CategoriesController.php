@@ -10,7 +10,7 @@ class CategoriesController extends AppController{
 	
 	public function beforeFilter(){
 		parent::beforeFilter();
-		  $this->Auth->allow();
+		//$this->Auth->allow();
 	}
 	public function admin_index(){
 		$catRs=array();
@@ -77,7 +77,7 @@ class CategoriesController extends AppController{
 				$res=$this->common->uploadImage('Category','image',$rootPath);
 				if($res){
 					$data['Category']['image']=$image['name'];
-					//$this->Category->save($data);
+					$this->Category->save($data);
 					$this->Session->setFlash(
 						'Data is save successfully',
 						'default',
